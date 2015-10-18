@@ -1,0 +1,158 @@
+html, body{
+	height:100%;
+	padding:0;
+	margin:0;
+	background-color:#057EFF; 
+	
+}
+
+.container
+{
+ position:relative;
+ height:auto; 
+ width:100%;
+ 
+}
+
+/* Login page css*/
+.Login-box{
+    height:auto; 
+    width: 100%;
+    margin:0 auto; 
+}
+
+.Login-box form{
+    border:2px solid white;
+    width:30%; 
+    margin:150px auto 0;
+    padding:0 auto;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+      border-radius:10px;
+}
+
+.Login-box input[type=text], input[type=password]{
+    display: block;
+    margin: auto;
+    width: 60%; 
+    border:2px solid white;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+     border-radius:10px;
+    padding: 5px;
+}
+
+.Login-box h4{
+    display: block;
+    width: 60%;
+    margin: auto;
+    padding:5px;
+    color:white;
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: 100;
+    font-variant: normal;
+    font-style: bold;
+}
+
+.Login-box legend{
+    display: block;
+    /*border: none;*/
+    width: 60%;
+    margin: auto;
+    color:white;
+    font-size: 50px;
+    font-family: cursive;
+    font-weight: 100;
+    font-variant: normal;
+    font-style: bold;
+}
+
+.Login-box input[type=submit] {
+    padding: 9px;
+    background: #057EFF;
+    color: white;
+
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: 100;
+    font-variant: normal;
+    font-style: bold;
+
+     border:2px solid white;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+      border-radius:10px;
+}
+
+
+/* sign up page css*/
+.Signup-box{
+    height:auto; 
+    width: 100%;
+    margin:0 auto; 
+}
+
+.Signup-box form{
+    border:2px solid white;
+    width:30%; 
+    margin:150px auto 0;
+    padding:0 auto;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+      border-radius:10px;
+}
+
+.Signup-box input[type=text], input[type=password]{
+    display: block;
+    margin: auto;
+    width: 60%; 
+    border:2px solid white;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+     border-radius:10px;
+    padding: 5px;
+}
+
+.Signup-box h4{
+    display: block;
+    width: 60%;
+    margin: auto;
+    padding:5px;
+    color:white;
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: 100;
+    font-variant: normal;
+    font-style: bold;
+}
+
+.Signup-box legend{
+    display: block;
+    /*border: none;*/
+    width: 60%;
+    margin: auto;
+    color:white;
+    font-size: 50px;
+    font-family: cursive;
+    font-weight: 100;
+    font-variant: normal;
+    font-style: bold;
+}
+
+.Signup-box input[type=submit] {
+    padding: 9px;
+    background: #057EFF;
+    color: white;
+
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: 100;
+    font-variant: normal;
+    font-style: bold;
+
+     border:2px solid white;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+      border-radius:10px;
+}
