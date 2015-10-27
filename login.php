@@ -12,18 +12,17 @@
         <div class="container">
 
     	<div class = "Login-box">
-        
-        <form>
+        <form action= "processForm.php"  method="post" required>
         <legend>Login</legend>
         <h4>Username:</h4>
-        <input type="text" name="firstname">
+        <input type="text" name="username" size="30" required>
         <br>
         <h4>Password:</h4>
-        <input type="password" name="lastname">
+        <input type="password" name="password" size="30" required>
          <br>
          <h4>
-        <input type="Submit" value="Sign Up">
-        <input type="Submit" value="Login">
+        <input type="Submit" name="submit" value="login">
+        <button onclick="window.location.href='signup.php' ">Sign Up</button>
         </h4>
 
         </form> 

@@ -68,7 +68,7 @@ html, body{
     font-style: bold;
 }
 
-.Login-box input[type=submit] {
+.Login-box input[type=submit], button{
     padding: 9px;
     background: #057EFF;
     color: white;
