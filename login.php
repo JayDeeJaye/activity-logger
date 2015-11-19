@@ -25,7 +25,6 @@
 
            <div class="row">
               <div class="col-md-12">
-                 <div class= "form-2">
                     <form action= "processForm.php"  method="post" required>
                        <div class="form-group">
                          <label for="Username">Username</label>
@@ -39,7 +38,6 @@
                          <input type="Submit" name="submit" value="login" class="btn btn-success">
                  
                     </form>
-                  </div>
                </div>
             </div>
 
