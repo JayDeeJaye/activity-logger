@@ -36,14 +36,47 @@
 
          
                <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-8 col-offset-2">
                     <div class= "form">
                      <form>
+                     <h3>Edit Activity</h3>
                       <div class="form-group">
                         <label for="Activity">Search activity</label>
                         <input type="text" class="form-control input-lg" placeholder="Search activity">
                       </div>
-
+                      
+                      <div class="btn-group">
+        <a class="btn btn-success btn-m dropdown-toggle" data-toggle="dropdown" href="#">Status<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Complete</a></li>
+          <li><a href="#">In Progress</a></li>
+          <li><a href="#">Not Started</a></li>
+        </ul>
+      </div>
+      
+      <div class="btn-group">
+        <a class="btn btn-success btn-m dropdown-toggle" data-toggle="dropdown" href="#">Priority<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">High</a></li>
+          <li><a href="#">Medium</a></li>
+          <li><a href="#">low</a></li>
+        </ul>
+      </div>
+      
+      <div class="btn-group">
+        <a class="btn btn-primary" href="#">Edit</a>
+      </div>
+      <input type="submit" value = "submit" class="btn btn-success">
+                      </form>
+                      </div>
+                      
+                      
+                      
+                      
+                      <div class="row">
+                      <div class ="col-md-8 col-offset-2">
+                      <form>
+                      <h3>Create new activity</h3>
                       <div class="form-group">
                         <label for="Activity">Activity</label>
                         <input type="text" class="form-control input-lg" placeholder="Add new Activity">
@@ -71,12 +104,12 @@
         </ul>
       </div>
 
-                      <!--<div class = "form-group">
+                      <div class = "form-group">
                         <label for="cart"><i class="fa fa-cart-plus"></i></label>
                         <div class="cart"></div>
                         <button type="submit" class="btn btn-danger pull-right">Remove</button>
                       </div>
-                      <button type="submit" class="btn btn-success">Submit</button> -->
+                      <button type="submit" class="btn btn-success">Submit</button>
 
                       </form>
                      </div>
