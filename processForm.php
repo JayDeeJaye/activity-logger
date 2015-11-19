@@ -1,5 +1,7 @@
 <?php
    
+    session_start();
+  
    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 mysql_connect("localhost", "root", "smartguy06")or die("cannot connect"); //connection variable
@@ -22,11 +24,14 @@ if($_POST['submit'] =='signup'){
         VALUES ('$firstname', '$lastname', '$username','$password','$email','$organization')";
 
         mysql_query($sql);
-        header('Location: index.php');
+        $_SESSION['loggedin'] = true;
+        header('Location: activity.php');
         }
-        else{
-           echo "<script type='text/javascript'>alert('Password does not match, please re-enter!');</script>";
-            header('Location: signup.php');
+        else {
+            $_SESSION['loggedin'] = false;
+            echo "<script type='text/javascript'>alert('Password does not match, please re-enter!');window.location.href='signup.php';</script>";
+            /*header('Location: signup.php');*/
+           
              }
              mysql_close();
             }
@@ -46,17 +51,18 @@ $count=mysql_num_rows($result);
 
 // If result matched $myusername and $mypassword, table row must be 1 row
 if($count==1){
-
+  $_SESSION['loggedin'] = true;
+  header('Location: activity.php');
 // login success, redirect to file "login_success.php" 
-header("location:index.php");
 }
+
 else {
-header("location:login.php");
+  $_SESSION['loggedin'] = false;
+echo "<script type='text/javascript'>alert('Please this user information does not exist, try with correct account information!');window.location.href='index.php';</script>";
+
 }
 mysql_close();
 }
-
-
 
  }
 ?>

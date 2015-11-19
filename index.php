@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+
+<?php
+    session_start();
+
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+      header("Location: activity.php");
+
+     // echo "Hello: ".$_SESSION['loggedin'];
+    }
+?>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -10,113 +21,37 @@
         <script src="js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
+
     <body>
-        <div class="container-fluid">
-
-           <nav role="navigation" class="navbar navbar-default">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand">Activity Log <i class="fa fa-clock-o"></i></a>
-        </div>
-        <!-- Collection of nav links, forms, and other content for toggling -->
-              <div id="navbarCollapse" class="collapse navbar-collapse navbar-right">
-                  <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Activity</a></li>
-                    <li><a href="#">Tracking</a></li>
-                    <li><a href="#">Share/Report</a></li>
-                  </ul> 
-                </div>
-              </nav> 
-
+        <div class="container">
          
-               <div class="row">
-                  <div class="col-md-8 col-offset-2">
-                    <div class= "form">
-                     <form>
-                     <h3>Edit Activity</h3>
-                      <div class="form-group">
-                        <label for="Activity">Search activity</label>
-                        <input type="text" class="form-control input-lg" placeholder="Search activity">
-                      </div>
-                      
-                      <div class="btn-group">
-        <a class="btn btn-success btn-m dropdown-toggle" data-toggle="dropdown" href="#">Status<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Complete</a></li>
-          <li><a href="#">In Progress</a></li>
-          <li><a href="#">Not Started</a></li>
-        </ul>
-      </div>
-      
-      <div class="btn-group">
-        <a class="btn btn-success btn-m dropdown-toggle" data-toggle="dropdown" href="#">Priority<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">High</a></li>
-          <li><a href="#">Medium</a></li>
-          <li><a href="#">low</a></li>
-        </ul>
-      </div>
-      
-      <div class="btn-group">
-        <a class="btn btn-primary" href="#">Edit</a>
-      </div>
-      <input type="submit" value = "submit" class="btn btn-success">
-                      </form>
-                      </div>
-                      
-                      
-                      
-                      
-                      <div class="row">
-                      <div class ="col-md-8 col-offset-2">
-                      <form>
-                      <h3>Create new activity</h3>
-                      <div class="form-group">
-                        <label for="Activity">Activity</label>
-                        <input type="text" class="form-control input-lg" placeholder="Add new Activity">
-                      </div>
-                      <div class="form-group">
-                        <label for="finish time">Estimated finish time</label>
-                        <input type="text" class="form-control input-lg" placeholder="Estimated Finish Time">
-                      </div>
-                      
-                      <div class="btn-group">
-        <a class="btn btn-success btn-m dropdown-toggle" data-toggle="dropdown" href="#">Priority<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">High</a></li>
-          <li><a href="#">Medium</a></li>
-          <li><a href="#">low</a></li>
-        </ul>
-      </div>
+          <div class="jumbotron">
+            <div class="container">
+             <h1>Activity Log <i class="fa fa-clock-o"></i></h1>
+             <h3>This is a helpful tool, used to keep track of time spent on activities</h3>
+             <button onclick = "window.location.href='signup.php'" class ="btn btn-primary">Sign Up</button>
+          </div>
+          </div>
 
-      <div class="btn-group">
-        <a class="btn btn-success btn-m dropdown-toggle" data-toggle="dropdown" href="#">Status<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Complete</a></li>
-          <li><a href="#">In Progress</a></li>
-          <li><a href="#">Not Started</a></li>
-        </ul>
-      </div>
 
-                      <div class = "form-group">
-                        <label for="cart"><i class="fa fa-cart-plus"></i></label>
-                        <div class="cart"></div>
-                        <button type="submit" class="btn btn-danger pull-right">Remove</button>
-                      </div>
-                      <button type="submit" class="btn btn-success">Submit</button>
+           <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                    <form action= "processForm.php"  method="post" required>
+                       <div class="form-group">
+                         <label for="Username">Username</label>
+                         <input type="text" class="form-control input-lg" placeholder="Username" name="username" size="30" required>
+                       </div>
+                       <div class="form-group">
+                          <label for="Password">Password</label>
+                          <input type="password" class="form-control input-lg" placeholder="Password" name="password" size="30" required>
+                       </div>
 
-                      </form>
-                     </div>
-                  </div>
+                         <input type="Submit" name="submit" value="login" class="btn btn-success">
+                 
+                    </form>
                </div>
-
             </div>
-    	
+
+        </div>
     </body>
 </html>

@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+session_start();
+?>
+
 <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -12,7 +16,7 @@
     </head>
 
     <body>
-        <div class="container-fluid">
+        <div class="container">
 
         <div class="jumbotron">
           <div class="container">
@@ -22,8 +26,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                <div class= "form-2">
+            <div class="col-md-6 col-md-offset-3">
                  <form action= "processForm.php"  method="post" required> 
                    <div class="form-group">   
                      <label>First name</label>

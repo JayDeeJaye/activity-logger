@@ -18,6 +18,9 @@ label[for = cart] {
 }
 
 .btn {
-   font-size: 1.1rem;
+   font-size: 2rem;
 }
 
+.edit-form {
+  margin-top: 150px;
+}
