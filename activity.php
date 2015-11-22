@@ -2,14 +2,9 @@
 
 <?php
 session_start();
-
-//$_SESSION['loggedin'] = true;
-
   if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
     header('Location: index.php');
   }
-
-  //echo "Current session value of logged in is: ".$_SESSION['loggedin'];
 ?>
 
 <html lang="en">
