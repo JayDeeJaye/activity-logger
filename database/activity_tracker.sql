@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `activity_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `activity_id` int(11) DEFAULT NULL,
-  `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `start_time` timestamp DEFAULT NULL,
   `elapsed_time` time DEFAULT NULL,
   `confirmed` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
