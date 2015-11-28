@@ -1,57 +1,63 @@
-<!DOCTYPE html>
+<?php
+    // Connect to the session
+    require_once('session.php');
+
+    // Insert the page header
+    $page_title = 'Track Your Activities';
+    require_once('header.php');
+ 
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
+        // Show the launch page
+?>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Activity Log <i class="fa fa-clock-o"></i></h1>
+                <h3>This is a helpful tool, used to keep track of time spent on activities</h3>
+                <button onclick = "window.location.href='signup.php'" class ="btn btn-primary">Sign Up</button>
+                <button onclick = "window.location.href='login.php'" class ="btn btn-primary">Login</button>
+            </div>
+        </div>
 
 <?php
-    session_start();
+    } else {
+        // We have a valid session. Show the user's home page    
 
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-      header("Location: activity.php");
+        // Show the navigation menu
+        $page_name = "Home";
+        require_once('navmenu.php');
 
-     // echo "Hello: ".$_SESSION['loggedin'];
+        // Database connection variables
+        require_once('connectvars.php');
+
+        // Connect to the database 
+        $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME); 
+
+        // Show the latest activities
+        $query = "SELECT activity_id,activity_name,MAX(start_time) AS last_worked " .
+            "FROM activity_log JOIN activity on (id = activity_id) " .
+            "WHERE user_id = '" . $_SESSION['user_id'] ."' " .
+            "GROUP BY a.activity_id,b.activity_name " .
+            "ORDER BY start_time DESC LIMIT 5";
+
+        $data = mysqli_query($dbc, $query);
+
+        echo '<h4>Your Recent Activity</h4>';
+        // Loop through the array of activity data and show it
+        if (mysqli_num_rows($data) > 0) {
+            echo '<div class="table-responsive">';
+            echo '<table class="table">';
+            while ($row = mysqli_fetch_array($data)) {
+                echo '<tr><td>' . $row['activity_name'] . '"</td></tr>';
+                echo '<tr><td>' . $row['last_worked'] . '"</td></tr>';
+            }
+            echo '</table>';
+            echo '</div>';
+        } else {
+            echo '<p class="bg-info">You haven\'t tracked anything yet. <a href="activity.php">Get Started</a>';
+        }
+        mysqli_close($dbc);
     }
+  // Include the page footer
+  require_once('footer.php');
 ?>
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Activity</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    </head>
-
-    <body>
-        <div class="container">
-         
-          <div class="jumbotron">
-            <div class="container">
-             <h1>Activity Log <i class="fa fa-clock-o"></i></h1>
-             <h3>This is a helpful tool, used to keep track of time spent on activities</h3>
-             <button onclick = "window.location.href='signup.php'" class ="btn btn-primary">Sign Up</button>
-          </div>
-          </div>
-
-
-           <div class="row">
-              <div class="col-md-6 col-md-offset-3">
-                    <form action= "processForm.php"  method="post" required>
-                       <div class="form-group">
-                         <label for="Username">Username</label>
-                         <input type="text" class="form-control input-lg" placeholder="Username" name="username" size="30" required>
-                       </div>
-                       <div class="form-group">
-                          <label for="Password">Password</label>
-                          <input type="password" class="form-control input-lg" placeholder="Password" name="password" size="30" required>
-                       </div>
-
-                         <input type="Submit" name="submit" value="login" class="btn btn-success">
-                 
-                    </form>
-               </div>
-            </div>
-
-        </div>
-    </body>
-</html>

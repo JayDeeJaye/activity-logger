@@ -1,33 +1,65 @@
-<!DOCTYPE html>
 <?php
-session_start();
+  require_once('session.php');
+  
+  // Load the page heading
+  $page_title = 'Sign Up';
+  require_once('header.php');
 ?>
-
-<html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Activity</title>
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="css/style.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    </head>
-
-    <body>
-        <div class="container">
+    <div class="container">
 
         <div class="jumbotron">
-          <div class="container">
-            <h1>Activity Log <i class="fa fa-clock-o"></i></h1>
-            <h3>This is a helpful tool, used to keep track of time spent on activities</h3>
-          </div>
+            <div class="container">
+                <h1>Activity Log <i class="fa fa-clock-o"></i></h1>
+                <h3>This is a helpful tool, used to keep track of time spent on activities</h3>
+            </div>
         </div>
+
+<?php
+    require_once('connectvars.php');
+
+    // Connect to the database
+    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+    if (isset($_POST['submit'])) {
+        // Grab the profile data from the POST
+        $username = mysqli_real_escape_string($dbc, trim($_POST['username']));
+        $password1 = mysqli_real_escape_string($dbc, trim($_POST['password']));
+        $password2 = mysqli_real_escape_string($dbc, trim($_POST['con-password']));
+        $real_name = mysqli_real_escape_string($dbc, trim($_POST['firstname']) . 
+            trim($_POST['lastname']));
+        $email_address = mysqli_real_escape_string($dbc, trim($_POST['email']));
+
+        if (!empty($username) && !empty($password1) && !empty($password2) && ($password1 == $password2)) {
+            // Make sure someone isn't already registered using this username
+            $query = "SELECT * FROM member WHERE username = '$username'";
+            $data = mysqli_query($dbc, $query);
+            if (mysqli_num_rows($data) == 0) {
+                // The username is unique, so insert the data into the database
+                $query = "INSERT INTO member (username, password, real_name, email_address) VALUES ('$username', SHA('$password1'), '$real_name', '$email_address')";
+                mysqli_query($dbc, $query);
+
+                // Confirm success with the user
+                echo '<p class="bg-success">Your new account has been successfully created. You\'re now ready to <a href="login.php">Log In</a>.</p>';
+
+                mysqli_close($dbc);
+                exit();
+            } else {
+                // An account already exists for this username, so display an error message
+                echo '<p class="bg-danger">Ack! An account already exists for ' . $username .'. Please choose a different username.</p>';
+                $username = "";
+            }
+        } else {
+            echo '<p class="bg-danger">You must enter all of the sign-up data, including the desired password twice.</p>';
+        }
+    }
+
+    mysqli_close($dbc);
+?>
 
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                 <form action= "processForm.php"  method="post" required> 
+                <p class="bg-primary">Please select a username and password to sign up to ActivityTracker.</p>
+                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>"  method="post" required> 
                    <div class="form-group">   
                      <label>First name</label>
                      <input type="text" class="form-control input-lg" placeholder="First name" name="firstname"size="30" required>
@@ -59,17 +91,11 @@ session_start();
                      <input type="password" class="form-control input-lg" placeholder="confirm Password" name="con-password"size="30" required>
                    </div>
 
-                   <div class ="form-group">
-                    <label>Organization name</label>
-                    <input type="text" class="form-control input-lg" placeholder="Organization name" name="organization"size="50" required>
-                   </div>
-
-                   <input type="Submit" name="submit" value="signup" class="btn btn-success">
+                   <input type="Submit" name="submit" value="Sign Up" class="btn btn-success">
                  </form> 
               </div>
             </div>
         </div>
 
-     </div>
- </body>
-</html>
+<?php require_once('footer.php'); ?>
+
