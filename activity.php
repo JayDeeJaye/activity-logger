@@ -38,6 +38,7 @@
                 echo '<th>Activity Name</th>';
                 echo '<th>Priority</th>';
                 echo '<th>Status</th>';
+                echo '<th>&nbsp;</th>';
                 echo '</tr>';
                 
                 while ($row = mysqli_fetch_array($data)) {
@@ -47,7 +48,7 @@
                     echo '<td>' . $row['activity_name'] . '</td>';
                     echo '<td>' . $row['priority'] . '</td>';
                     echo '<td>' . $row['status'] . '</td>';
-                    echo '<td><input class="btn btn-primary" type="submit" name="submit" value="Track"></td>';
+                    echo '<td><input type="submit" name="submit" value="Track" /></td>';
                     echo '</tr>';
                     echo '</form>';
                 }
