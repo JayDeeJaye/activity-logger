@@ -28,8 +28,8 @@
                     $_SESSION['user_id'] = $row['id'];
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['loggedin'] = true;
-                    setcookie('user_id', $row['id'], time() + (60 * 60 * 24 * 30));    // expires in 30 days
-                    setcookie('username', $row['username'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
+                    //setcookie('user_id', $row['id'], time() + (60 * 60 * 24));    // expires in 1 day
+                    //setcookie('username', $row['username'], time() + (60 * 60 * 24));  // expires in 1 day
                     $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . 'index.php';
                     header('Location: ' . $home_url);
                 } else {

@@ -5,6 +5,7 @@
     }
 
     // Open the page
+    $page_title = 'My Activities';
     require_once('header.php');
 ?>
 
@@ -42,15 +43,12 @@
                 echo '</tr>';
                 
                 while ($row = mysqli_fetch_array($data)) {
-                    echo '<form type="post" action="tracking.php">';
-                    echo '<input type="hidden" name="activity_id" value=' . $row['id'] . ' />';
                     echo '<tr>';
                     echo '<td>' . $row['activity_name'] . '</td>';
                     echo '<td>' . $row['priority'] . '</td>';
                     echo '<td>' . $row['status'] . '</td>';
-                    echo '<td><input type="submit" name="submit" value="Track" /></td>';
+                    echo '<td><a class="btn btn-primary btn-xs" href="tracking.php?activity_id=' . $row['id'] . '" >Track</a></td>';
                     echo '</tr>';
-                    echo '</form>';
                 }
                 echo '</table>';
                 echo '</div>';

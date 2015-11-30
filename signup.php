@@ -1,6 +1,4 @@
 <?php
-  require_once('session.php');
-  
   // Load the page heading
   $page_title = 'Sign Up';
   require_once('header.php');
