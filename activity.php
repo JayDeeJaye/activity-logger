@@ -40,6 +40,7 @@
                 echo '<th>Priority</th>';
                 echo '<th>Status</th>';
                 echo '<th>&nbsp;</th>';
+                echo '<th>&nbsp;</th>';
                 echo '</tr>';
                 
                 while ($row = mysqli_fetch_array($data)) {
@@ -47,13 +48,15 @@
                     echo '<td>' . $row['activity_name'] . '</td>';
                     echo '<td>' . $row['priority'] . '</td>';
                     echo '<td>' . $row['status'] . '</td>';
-                    echo '<td><a class="btn btn-primary btn-xs" href="tracking.php?activity_id=' . $row['id'] . '" >Track</a></td>';
+                    echo '<td><a class="btn btn-primary btn-xs" href="editactivity.php?activity_id=' . $row['id'] . '" >Edit</a></td>';
+                    echo '<td><a class="btn btn-success btn-xs" href="tracking.php?activity_id=' . $row['id'] . '" >Track</a></td>';
                     echo '</tr>';
                 }
                 echo '</table>';
                 echo '</div>';
+                echo '<a class="btn btn-primary" href="addactivity.php">Add New</a>';
             } else {
-                echo '<p class="bg-warning">You don\'t have any activities loaded yet. <a href="addactivity.php">Add Some</a>';
+                echo '<p class="alert-warning">You don\'t have any activities loaded yet. <a href="addactivity.php">Add Some</a>';
             }
             
             mysqli_close($dbc);

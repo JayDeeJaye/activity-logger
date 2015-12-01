@@ -1,7 +1,9 @@
+/*
 label {
-   /* color: white;*/
+   /* color: white;*//*
     font-weight: 100;
 }
+*/
 
 label[for = cart] {
     font-size: 1.5rem;
@@ -16,10 +18,11 @@ label[for = cart] {
 .jumbotron h1 {
    font-size: 4rem;
 }
-
+/* This was overriding being able to adjust the size of buttons.
 .btn {
    font-size: 2rem;
 }
+*/
 
 .edit-form {
   margin-top: 150px;

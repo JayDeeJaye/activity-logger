@@ -44,57 +44,59 @@
             $row = mysqli_fetch_array($data);
             $activity_name = $row['activity_name'];
 
+            // Tracking is ready to go.
             if (isset($_GET['activity_id'])) {
 ?>
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="hidden" name="activity_id" value="<?php echo $activity_id; ?>" />
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="trackForm">
                     <h4><?php echo 'Activity: ' . $row['activity_name']; ?></h4>
-                    <button type="button" id="btnStart">Start</button>
-                    <button type="button" id="btnStop">Stop</button>
-                    <input type="submit" value="Save" name="submit" disabled />
-                    <input type="text" name="elapsed_time" id="elapsed_time" value="0" />
-                </form>
-
-<?php                
-/*            
-            } else if ($_POST['submit'] == 'Start') {
-                // Store the start event and start the timer
-                $activity_id = mysqli_real_escape_string($dbc, trim($_POST['activity_id']));
-                
-                $query = "INSERT INTO activity_log (" .
-                            "user_id,activity_id,start_time,elapsed_time,confirmed " .
-                         ") VALUES ( " .
-                         "'" . $_SESSION['user_id'] . "', '$activity_id', NOW(), '00:00:00', 'N')";
-                mysqli_query($dbc,$query)
-                    or die("An error occurred loading the activity: " . mysqli_error($dbc));
-?>
-
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <input type="hidden" name="activity_id" value="<?php echo $activity_id; ?>" />
-                    <h4><?php echo 'Activity: ' . $row['activity_name']; ?></h4>
-                    <input type="submit" value="Start" name="submit" disabled />
-                    <input type="submit" value="Stop" name="submit" />
+                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
+                    <input type="hidden" name="track_id" id="inTrackId" value="" />
+                    <button type="button" class="btn-success" id="btnStart">Start</button>
+                    <button type="button" class="btn-danger" id="btnStop" disabled>Stop</button>
+                    <button type="submit" class="btn-primary" id="btnSave" name="submit" disabled>Save</button>
                     <input type="text" name="elapsed_time" id="elapsed_time" value="00:00:00" readonly />
                 </form>
 
-<?php
-              
-            } else if ($_POST['submit'] == 'Stop') {
-                // Stop the timer
-*/
-            }
+<?php                
+            } else if (isset($_POST['submit'])) {
+                $track_id = mysqli_real_escape_string($dbc, trim($_POST['track_id']));
+                $activity_id = mysqli_real_escape_string($dbc, trim($_POST['activity_id']));
+                $elapsed_time = mysqli_real_escape_string($dbc, trim($_POST['elapsed_time']));
+
+                if (preg_match('/(\d+):(\d\d):(\d\d)/',$elapsed_time,$parts)) {
+                    $hours = $parts[1] + ($parts[2] / 60) + ($parts[3] / 3600);
+                } else {
+                    echo '<p class="alert-danger">Invalid elapsed time on update</p>';
+                    mysqli_close($dbc);
+                    exit();
+                }
+                     
+                $query = "UPDATE activity_log " .
+                         "SET elapsed_time = '$hours', confirmed = 'Y' " .
+                         "WHERE id = '$track_id' " .
+                           "AND user_id = '" . $_SESSION['user_id'] . "' " .
+                           "AND activity_id = '$activity_id'";
+
+                mysqli_query($dbc,$query)
+                    or die("An error occurred updating the track: " . mysqli_error($dbc));
+                
+                echo '<p class="alert-success">Track Saved. Go back to <a href="activity.php">Activities</a></p>';
+             }   
         } else {
-            echo '<p class="bg-danger">The selected activity could not be found!</p>';
+            echo '<p class="alert-danger">The selected activity could not be found!</p>';
         }
     }
         
     mysqli_close($dbc);
 ?>
 
-          </div>
+            <div class="alert-danger" id="divTrackError"></div>
+            <div class="alert-success" id="divTrackSuccess"></div>
+
+        </div>
     </div>
 
-	<script src="scripts/jquery-1.6.2.min.js"></script>
 	<script src="scripts/tracking.js"></script>
 
 <?php
