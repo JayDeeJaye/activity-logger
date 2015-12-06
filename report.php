@@ -15,7 +15,7 @@
 ?>
 
 <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-10 col-md-offset-1">
             <h4>My Activities</h4>
 <?php   
             //make variables to hold data for compuation must be global fo file
@@ -24,6 +24,9 @@
             $elapsedTime = 0;
             $status = "";
             $confirmed = "";
+            $percentComplete = 0;
+            $remark = "";
+            $priority = "";
             // Database connection variables
             require_once('connectvars.php');
 
@@ -31,8 +34,8 @@
             $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die ('Cannot connect to database'); 
 
             // Show the latest activities
-            $query = "SELECT activity.id, activity.activity_name, activity.estimate, 
-            sum(activity_log.elapsed_time) AS total_elapsedTime , activity.status, activity_log.confirmed 
+            $query = "SELECT activity.id, activity.activity_name, activity.estimate, activity.priority, 
+            sum(activity_log.elapsed_time) AS total_elapsedTime , activity.status, MAX(activity_log.confirmed) AS confirmed 
             FROM activity JOIN activity_log ON activity_log.activity_id = activity.id AND activity_log.user_id = '". $_SESSION['user_id'] ."'
             GROUP BY activity.activity_name";
 
@@ -44,30 +47,37 @@
                     echo '<table class="table">';
                     echo '<tr>';
                     echo '<th>Activity Name</th>';
-                    echo '<th>Estimate</th>';
-                    echo '<th>ElapsedTime</th>';
+                    echo '<th>Estimate(Hours)</th>';
+                    echo '<th>ElapsedTime(Hours)</th>';
+                    echo '<th>Percent completed</th>';
                     echo '<th>Status</th>';
-                    echo '<th>confirmed</th>';
+                    echo '<th>confirmed(saved)</th>';
+                    echo '<th>Remark</th>';
                     echo '</tr>';
                     echo '<tr>';
 
-                while ($row = mysqli_fetch_array($data)) {
+                    while ($row = mysqli_fetch_array($data)) {
                     
                     $row['id'] = new collection; //declare a php object using activity id
 
-                    //call functions from class to compute different measures
+                    //call functions from class to get and store values from rows in database
                     $activityName = $row['id']->activityName($row['activity_name']);
                     $estimate = $row['id']->estimate($row['estimate']);
                     $elapsedTime = $row['id']->elapsedTime($row['total_elapsedTime']);
+                    $percentComplete = $row['id']->percentComplete();
+                    $priority = $row['id']->priority($row['priority']);
                     $status = $row['id']->status($row['status']);
-                    $confirmed = $row['id']->confirmed($row['confirmed']); 
+                    $confirmed = $row['id']->confirmed($row['confirmed']);
+                    $remark = $row['id']->remark();
 
                     //display
                     echo '<td>' . $activityName. '</td>';
                     echo '<td>' . $estimate . '</td>';
                     echo '<td>' . $elapsedTime. '</td>';
+                    echo '<td>' . $percentComplete.'%'. '</td>';
                     echo '<td>' . $status. '</td>';
                     echo '<td>' . $confirmed . '</td>';
+                    echo '<td>' . $remark. '</td>';
                     echo '</tr>';
                     }
                     echo '</table>';
@@ -76,15 +86,15 @@
                 echo '<p class="alert-warning">You don\'t have any activities loaded yet. <a href="addactivity.php">Add Some</a>';
             }
 
-             //class to compute 
+             //class for computations 
             class collection{
-
                   var $activityName;
                   var $estimate;
                   var $elapsedTime;
+                  var $percentComplete;
                   var $status;
                   var $confirmed;
-
+                  var $priority;
 
                 function activityName($activity_name){
                   $this->activityName = $activity_name;
@@ -101,6 +111,17 @@
                    return $this->elapsedTime;
                 }
 
+                function percentComplete(){
+                   $result = ($this->elapsedTime / $this->estimate)*100;
+                   $this->percentComplete = $result;
+                   return $result;
+                }
+
+                function priority($priority){
+                   $this->priority = $priority;
+                   return $this->priority;
+                }
+
                 function status($status){
                  $this->status = $status;
                   return $this->status;
@@ -111,17 +132,35 @@
                  return $this->confirmed;
                 }
 
-                function display(){
-
+                function remark(){
+                    $remark = "";
+                    if(($this->percentComplete>100)){
+                       $remark = "<p class = 'text-warning'>You exceeded Your Estimate for this Activity, Plan better</p>";
+                       return $remark;
+                     }
+                    else{
+                        if(($this->status)=="Completed" && ($this->confirmed=="Y")){
+                            $remark ="<p class = 'text-success'>Successful Planning, Activity Completed. Great Job!</p>";
+                            return $remark;
+                        }
+                        else{
+                            if(($this->priority)=="A1" || ($this->priority)== "1" || ($this->priority)== "A" ){
+                            $remark = "<p class = 'text-danger'>Please begin or continue tracking this Activity Immediately</p>";
+                            return $remark;
+                            }
+                            else{
+                                 $remark = "<p class='text-info'>Activity may still be active, deferred, Not started or Not saved</p>";
+                                 return $remark;
+                            }
+                        }
+                    }
                 }
 
             }//end of class
-
 
             mysqli_close($dbc);
 ?>
         </div>
     </div>
-
 
 <?php require_once('footer.php'); ?>
