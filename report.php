@@ -16,7 +16,7 @@
 
 <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h4>My Activities</h4>
+            <h4>Report</h4>
 <?php   
             //make variables to hold data for compuation must be global fo file
             $activityName = "";
