@@ -30,7 +30,7 @@
                     $_SESSION['loggedin'] = true;
                     //setcookie('user_id', $row['id'], time() + (60 * 60 * 24));    // expires in 1 day
                     //setcookie('username', $row['username'], time() + (60 * 60 * 24));  // expires in 1 day
-                    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . 'index.php';
+                    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
                     header('Location: ' . $home_url);
                 } else {
                     // The username/password are incorrect so set an error message
