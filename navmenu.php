@@ -16,7 +16,7 @@
             <li <?php if ($page_name == "Home") echo 'class="active"'; ?> ><a href="index.php">Home</a></li>
             <li <?php if ($page_name == "Activity") echo 'class="active"'; ?> ><a href="activity.php">Activity</a></li>
             <li <?php if ($page_name == "Tracking") echo 'class="active"'; ?>><a href="tracking.php">Tracking</a></li>
-            <li <?php if ($page_name == "Report") echo 'class="active"'; ?>><a href="#">Share/Report</a></li>
+            <li <?php if ($page_name == "Report") echo 'class="active"'; ?>><a href="report.php">Share/Report</a></li>
             <li><a href="logout.php">Log Out</a></li>
         </ul> 
     </div>
