@@ -113,6 +113,7 @@
 
                 function percentComplete(){
                    $result = ($this->elapsedTime / $this->estimate)*100;
+                   $result = round($result, 2);
                    $this->percentComplete = $result;
                    return $result;
                 }
