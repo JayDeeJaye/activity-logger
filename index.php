@@ -54,7 +54,7 @@
             echo '</table>';
             echo '</div>';
         } else {
-            echo '<p class="bg-info">You haven\'t tracked anything yet. <a href="activity.php">Get Started</a>';
+            echo '<p class="alert-info">You haven\'t tracked anything yet. <a href="activity.php">Get Started</a>';
         }
         mysqli_close($dbc);
     }

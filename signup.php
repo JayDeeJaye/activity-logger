@@ -37,17 +37,17 @@
                 mysqli_query($dbc, $query);
 
                 // Confirm success with the user
-                echo '<p class="bg-success">Your new account has been successfully created. You\'re now ready to <a href="login.php">Log In</a>.</p>';
+                echo '<p class="alert-success">Your new account has been successfully created. You\'re now ready to <a href="login.php">Log In</a>.</p>';
 
                 mysqli_close($dbc);
                 exit();
             } else {
                 // An account already exists for this username, so display an error message
-                echo '<p class="bg-danger">Ack! An account already exists for ' . $username .'. Please choose a different username.</p>';
+                echo '<p class="alert-danger">Ack! An account already exists for ' . $username .'. Please choose a different username.</p>';
                 $username = "";
             }
         } else {
-            echo '<p class="bg-danger">You must enter all of the sign-up data, including the desired password twice.</p>';
+            echo '<p class="alert-danger">You must enter all of the sign-up data, including the desired password twice.</p>';
         }
     }
 
@@ -56,7 +56,7 @@
 
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <p class="bg-primary">Please select a username and password to sign up to ActivityTracker.</p>
+                <p class="alert-primary">Please select a username and password to sign up to ActivityTracker.</p>
                  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"  method="post" required> 
                    <div class="form-group">   
                      <label>First name</label>

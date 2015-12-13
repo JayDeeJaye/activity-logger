@@ -16,40 +16,62 @@ $(document).ready(function(){
 	var FREQ = 1000 ;
 	var repeat = false;
     var duration = 0.0;
-    var activityTimer;
+    var stopwatchTimer;
+	var updDbFREQ = 30000 ;
+	var trackTimer;
     
-	function updateTimer(){
+    // Add 1 second to the stopwatch timer every second
+	function updateStopwatchTimer(){
 	
 		if(repeat){
-			activityTimer = setTimeout( function() {
+			stopwatchTimer = setTimeout( function() {
 			        duration = duration + 1;
 					$("#elapsed_time").val(duration.toHHMMSS());
-					updateTimer();
+					updateStopwatchTimer();
 				}, 	
 				FREQ
 			);
 		}
 	}
 
-	$("#btnStop").click(function(){
-		clearTimeout(activityTimer)
-		repeat = false;
+    // Every updFREQ interval, write the track time to the database
+   	function updateTrackTimer(){
+	
+		if(repeat){
+			trackTimer = setTimeout( function() {
+                    updateActivityLog("auto-save");
+					updateTrackTimer();
+				}, 	
+				updDbFREQ
+			);
+		}
+	}
+ 
 
+    function updateActivityLog(kind) {
         // Update the elapsed time 
 		var data = $("#trackForm :input").serializeArray();
 
 		$.post("updatetrack.php", data, function(json){
 			if (json.status == "fail") {
-				$("#divTrackError").html(json.message);
+				$("#divTrackError").html(kind + ": " + json.message);
 			}
-			if (json.status == "success") {
+			if (json.status == "success" && kind != "auto-save") {
 				$("#divTrackSuccess").html(json.message);
 			}
 		}, "json");
+    }
+
+	$("#btnStop").click(function(){
+		clearTimeout(stopwatchTimer);
+		clearTimeout(trackTimer);
+		repeat = false;
+
+        updateActivityLog("save-on-stop");
 
 		$("#btnStop").prop("disabled",true);
 		$("#btnStart").prop("disabled",false);
-		$("#btnSave").prop("disabled",false);
+;		$("#btnSave").prop("disabled",false);
 	});
 
 	$("#btnStart").click(function(){
@@ -77,7 +99,8 @@ $(document).ready(function(){
 		$("#btnSave").prop("disabled",true);
 
 		repeat = true;
-		updateTimer();
+		updateStopwatchTimer();
+		updateTrackTimer();
 	});	
 });
 

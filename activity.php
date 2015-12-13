@@ -47,7 +47,7 @@
                 $data = mysqli_query($dbc, $query);
 
                 echo '<div class="table-responsive">';
-                echo '<table class="table">';
+                echo '<table class="table table-condensed">';
                 echo '<tr>';
                 echo '<th>Activity Name</th>';
                 echo '<th>Priority</th>';
@@ -61,8 +61,8 @@
                     echo '<td>' . $row['activity_name'] . '</td>';
                     echo '<td>' . $row['priority'] . '</td>';
                     echo '<td>' . $row['status'] . '</td>';
-                    echo '<td><a class="btn btn-primary btn-xs" href="editactivity.php?activity_id=' . $row['id'] . '" >Edit</a></td>';
-                    echo '<td><a class="btn btn-success btn-xs" href="tracking.php?activity_id=' . $row['id'] . '" >Track</a></td>';
+                    echo '<td class="text-center"><a class="btn btn-primary btn-sm" href="editactivity.php?activity_id=' . $row['id'] . '" >Edit</a></td>';
+                    echo '<td class="text-center"><a class="btn btn-success btn-sm" href="tracking.php?activity_id=' . $row['id'] . '" >Track</a></td>';
                     echo '</tr>';
                 }
                 // Generate navigational page links if we have more than one page
