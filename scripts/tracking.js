@@ -56,9 +56,11 @@ $(document).ready(function(){
 			if (json.status == "fail") {
 				$("#divTrackError").html(kind + ": " + json.message);
 			}
+/*
 			if (json.status == "success" && kind != "auto-save") {
 				$("#divTrackSuccess").html(json.message);
 			}
+*/
 		}, "json");
     }
 
@@ -72,6 +74,8 @@ $(document).ready(function(){
 		$("#btnStop").prop("disabled",true);
 		$("#btnStart").prop("disabled",false);
 ;		$("#btnSave").prop("disabled",false);
+;		$("#btnDiscard").prop("disabled",false);
+		$("#elapsed_time").prop("readonly",false);
 	});
 
 	$("#btnStart").click(function(){
@@ -97,6 +101,8 @@ $(document).ready(function(){
 		$("#btnStop").prop("disabled",false);
 		$("#btnStart").prop("disabled",true);
 		$("#btnSave").prop("disabled",true);
+		$("#btnDiscard").prop("disabled",true);
+		$("#elapsed_time").prop("readonly",true);
 
 		repeat = true;
 		updateStopwatchTimer();

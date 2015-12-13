@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="#" class="navbar-brand">Activity Log <i class="fa fa-clock-o"></i></a>
+        <a href="#" class="navbar-brand">Activity Tracker <i class="fa fa-clock-o"></i></a>
     </div>
     <!-- Collection of nav links, forms, and other content for toggling -->
     <div id="navbarCollapse" class="collapse navbar-collapse navbar-right">

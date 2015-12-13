@@ -32,7 +32,7 @@
         $activity_id = mysqli_real_escape_string($dbc, trim($_POST['activity_id']));
     }
     
-    if (isset($_GET['activity_id']) || isset($_POST['submit'])) {
+    if (isset($_GET['activity_id']) || isset($_POST['save']) || isset($_POST['discard'])) {
     
         $query = "SELECT activity_name " .
                  "FROM activity " .
@@ -52,14 +52,16 @@
                     <input type="hidden" name="activity_id" value="<?php echo $activity_id; ?>" />
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
                     <input type="hidden" name="track_id" id="inTrackId" value="" />
-                    <button type="button" class="btn-success" id="btnStart">Start</button>
-                    <button type="button" class="btn-danger" id="btnStop" disabled>Stop</button>
-                    <button type="submit" class="btn-primary" id="btnSave" name="submit" disabled>Save</button>
+                    <button type="button" class="btn btn-success" id="btnStart">Start</button>
+                    <button type="button" class="btn btn-danger" id="btnStop" disabled="disabled">Stop</button>
                     <input type="text" name="elapsed_time" id="elapsed_time" value="00:00:00" readonly />
+                    <br><br>
+                    <button type="submit" class="btn btn-primary" id="btnSave" name="save" disabled="disabled">Save</button>
+                    <button type="submit" class="btn btn-primary" id="btnDiscard" name="discard" disabled="disabled">Discard</button>
                 </form>
 
 <?php                
-            } else if (isset($_POST['submit'])) {
+            } else if (isset($_POST['save']) || isset($_POST['discard'])) {
                 $track_id = mysqli_real_escape_string($dbc, trim($_POST['track_id']));
                 $activity_id = mysqli_real_escape_string($dbc, trim($_POST['activity_id']));
                 $elapsed_time = mysqli_real_escape_string($dbc, trim($_POST['elapsed_time']));
@@ -71,17 +73,32 @@
                     mysqli_close($dbc);
                     exit();
                 }
-                     
-                $query = "UPDATE activity_log " .
-                         "SET elapsed_time = '$hours', confirmed = 'Y' " .
-                         "WHERE id = '$track_id' " .
-                           "AND user_id = '" . $_SESSION['user_id'] . "' " .
-                           "AND activity_id = '$activity_id'";
 
-                mysqli_query($dbc,$query)
-                    or die("An error occurred updating the track: " . mysqli_error($dbc));
+                if (isset($_POST['save'])) {
+                     
+                    $query = "UPDATE activity_log " .
+                             "SET elapsed_time = '$hours', confirmed = 'Y' " .
+                             "WHERE id = '$track_id' " .
+                               "AND user_id = '" . $_SESSION['user_id'] . "' " .
+                               "AND activity_id = '$activity_id'";
+
+                    mysqli_query($dbc,$query)
+                        or die("An error occurred updating the track: " . mysqli_error($dbc));
+                    
+                    echo '<p class="alert-success">Track Saved. Go back to <a href="activity.php">Activities</a></p>';
+                } else if (isset($_POST['discard'])) {
+                     
+                    $query = "DELETE FROM activity_log " .
+                             "WHERE id = '$track_id' " .
+                               "AND user_id = '" . $_SESSION['user_id'] . "' " .
+                               "AND activity_id = '$activity_id'";
+
+                    mysqli_query($dbc,$query)
+                        or die("An error occurred discarding the track: " . mysqli_error($dbc));
+                    
+                    echo '<p class="alert-success">Track discarded. Go back to <a href="activity.php">Activities</a></p>';
+                }
                 
-                echo '<p class="alert-success">Track Saved. Go back to <a href="activity.php">Activities</a></p>';
              }   
         } else {
             echo '<p class="alert-danger">The selected activity could not be found!</p>';

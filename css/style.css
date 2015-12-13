@@ -18,11 +18,7 @@ label[for = cart] {
 .jumbotron h1 {
    font-size: 4rem;
 }
-/* This was overriding being able to adjust the size of buttons.
-.btn {
-   font-size: 2rem;
-}
-*/
+
 
 .edit-form {
   margin-top: 150px;
