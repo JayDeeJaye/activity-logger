@@ -1,0 +1,5 @@
+LOAD DATA LOCAL INFILE '/tmp/track_import.csv'
+INTO TABLE activity_log
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+
