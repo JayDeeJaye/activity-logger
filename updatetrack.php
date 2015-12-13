@@ -25,6 +25,13 @@
 
         mysqli_query($dbc,$query)
             or fail("An error occurred updating the track: " . mysqli_error($dbc));
+
+        // The track is active now, so update the activity record status
+        $query = "UPDATE activity " .
+                 "SET status = 'In Progress' " .
+                 "WHERE id = '$activity_id' " .
+                   "AND user_id = '" . $_SESSION['user_id'] . "' ";
+        mysqli_query($dbc,$query);
         
         mysqli_close($dbc);
         success("Track Updated");

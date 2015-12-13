@@ -21,7 +21,7 @@
     $cur_page = isset($_GET['page']) ? $_GET['page'] : 1;
     $results_per_page = 5;  // number of results per page
     $skip = (($cur_page - 1) * $results_per_page);
-    $status_filter = isset($_GET['status']) ? $_GET['status'] : '%';
+    $status_filter = isset($_GET['status']) ? $_GET['status'] : 'In Progress';
 
 ?>
 

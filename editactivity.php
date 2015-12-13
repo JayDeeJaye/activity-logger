@@ -124,10 +124,10 @@
                 <label for="status" class="col-sm-2 control-label">Status</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="status" id="status">
-                      <option selected value="Not Started">Not Started</option>
-                      <option value="In Progress">In Progress</option>
-                      <option value="Deferred">Deferred</option>
-                      <option value="Completed">Completed</option>
+                      <option <?php echo (($status == "Not Started") ? "selected" : ""); ?> value="Not Started">Not Started</option>
+                      <option <?php echo (($status == "In Progress") ? "selected" : ""); ?> value="In Progress">In Progress</option>
+                      <option <?php echo (($status == "Deferred") ? "selected" : ""); ?> value="Deferred">Deferred</option>
+                      <option <?php echo (($status == "Completed") ? "selected" : ""); ?> value="Completed">Completed</option>
                     </select>
                 </div>
             </div>
