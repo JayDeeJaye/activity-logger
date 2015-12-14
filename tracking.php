@@ -52,9 +52,9 @@
                     <input type="hidden" name="activity_id" value="<?php echo $activity_id; ?>" />
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
                     <input type="hidden" name="track_id" id="inTrackId" value="" />
-                    <button type="button" class="btn-success" id="btnStart">Start</button>
-                    <button type="button" class="btn-danger" id="btnStop" disabled>Stop</button>
-                    <button type="submit" class="btn-primary" id="btnSave" name="submit" disabled>Save</button>
+                    <button type="button" class="btn btn-success" id="btnStart">Start</button>
+                    <button type="button" class="btn btn-danger" id="btnStop" disabled>Stop</button>
+                    <button type="submit" class="btn btn-primary" id="btnSave" name="submit" disabled>Save</button>
                     <input type="text" name="elapsed_time" id="elapsed_time" value="00:00:00" readonly />
                 </form>
 
