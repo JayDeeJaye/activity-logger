@@ -1,9 +1,9 @@
 <?php
         // Show the most recent tracks
-        $query = "SELECT activity_id,activity_name,MAX(start_time) AS last_worked " .
+        $query = "SELECT a.activity_id,b.activity_name,b.status,MAX(start_time) AS last_worked " .
             "FROM activity_log a JOIN activity b on (b.id = a.activity_id) " .
             "WHERE a.user_id = '" . $_SESSION['user_id'] ."' " .
-            "GROUP BY a.activity_id,b.activity_name " .
+            "GROUP BY a.activity_id,b.activity_name,b.status " .
             "ORDER BY MAX(start_time) DESC LIMIT 5";
 
         $data = mysqli_query($dbc, $query)
@@ -16,6 +16,7 @@
             echo '<table class="table">';
             while ($row = mysqli_fetch_array($data)) {
                 echo '<tr><td>' . $row['activity_name'] . '</td>';
+                echo '<td>' . $row['status'] . '</td>';
                 echo '<td>' . $row['last_worked'] . '</td></tr>';
             }
             echo '</table>';

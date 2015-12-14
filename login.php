@@ -51,7 +51,7 @@
 
         <div class="jumbotron">
             <div class="container">
-                <h1>Activity Log <i class="fa fa-clock-o"></i></h1>
+                <h1>Activity Tracker <i class="fa fa-clock-o"></i></h1>
                 <h3>Log in, and get Trackin'!</h3>
                 <p>Not a user yet?</>
                 <button onclick = "window.location.href='signup.php'" class ="btn btn-primary">Sign Up</button>
