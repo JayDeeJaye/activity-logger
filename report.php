@@ -37,7 +37,7 @@
             $query = "SELECT activity.id, activity.activity_name, activity.estimate, activity.priority, 
             sum(activity_log.elapsed_time) AS total_elapsedTime , activity.status, MAX(activity_log.confirmed) AS confirmed 
             FROM activity JOIN activity_log ON activity_log.activity_id = activity.id AND activity_log.user_id = '". $_SESSION['user_id'] ."'
-            GROUP BY activity.activity_name";
+            where activity_log.confirmed = 'Y' GROUP BY activity.id";
 
             $data = mysqli_query($dbc, $query);
 
@@ -107,13 +107,13 @@
                 }
 
                 function elapsedTime($elapsed_time){
-                   $this->elapsedTime = $elapsed_time;
+                   $this->elapsedTime = round($elapsed_time,2);
                    return $this->elapsedTime;
                 }
 
                 function percentComplete(){
                    $result = ($this->elapsedTime / $this->estimate)*100;
-                   $result = round($result, 2);
+                   $result = round($result, 0);
                    $this->percentComplete = $result;
                    return $result;
                 }
