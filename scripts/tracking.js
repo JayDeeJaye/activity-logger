@@ -95,6 +95,9 @@ $(document).ready(function(){
 				    $("#inTrackId").val(json.message);
 			    }
 		    }, "json");
+        } else {
+		    var a = $("#elapsed_time").val().split(':');
+		    duration = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
         }
 
         // Start the stopwatch
